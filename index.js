@@ -2,18 +2,12 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const dbConnect = require('./connection/DbConnect');
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB Atlas via Mongoose connection string (process.env.MONGODB_URI) or via the MongoDB Atlas connection string (process.env.MONGODB_URI_ATLAS)
-mongoose.connect(process.env.MONGODB_URI,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() =>{
-    console.info('Connected to MongoDB Atlas successfully 🎉 🎉 🎉 ');
-}).catch(err =>{
-    console.error('Error connecting to MongoDB Atlas:', err.message);
-})
+dbConnect();
 
 
 app.get('/', (req, res) => {
